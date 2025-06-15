@@ -1,7 +1,8 @@
 import psycopg2
-import Database as db
+from Database import curr_db as db
 import time
 from terminal import clear_terminal, kembali
+from M_Akun import mregister_cek, mregister
 
 def register():
     clear_terminal()
@@ -9,27 +10,18 @@ def register():
     nama = input("Nama: ")
     no_hp = input("No HP: ")
     
-    conn = db.connect_db()
-    cur = conn.cursor()
+    cek = mregister_cek(nama, no_hp)
+    conn, cur = db()
     
-    cur.execute("SELECT * FROM akun WHERE no_hp = %s", (no_hp,))
-    no_hp2 = cur.fetchone()
-    
-    if no_hp2 is not None:
+    if cek is not None:
         print("Registrasi gagal: Nomor HP sudah digunakan!!!")
         time.sleep(1)
         kembali()
     
     try:
-        if no_hp2 is None:
-            # Insert ke tabel akun
-            cur.execute("""
-                INSERT INTO akun (no_hp, nama, role)
-                VALUES (%s, %s, %s) RETURNING id_akun;
-            """, (no_hp, nama, "P"))
-            id_akun = cur.fetchone()[0]
-
-            conn.commit()
+        if cek is None:
+            mregister(nama, no_hp)
+            
             print("Registrasi berhasil!")
             time.sleep(1)
             kembali()

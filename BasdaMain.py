@@ -1,4 +1,3 @@
-import Database as db
 import time
 from register import register
 from login import login

@@ -9,3 +9,8 @@ def connect_db():
     port=5432
     )     
     return conn
+
+def curr_db():
+    conn = connect_db()
+    cur = conn.cursor()
+    return conn, cur

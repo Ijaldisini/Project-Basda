@@ -1,7 +1,7 @@
-import psycopg2
-import Database as db
+from Database import curr_db as db
 import time
 from terminal import clear_terminal, kembali
+from M_Akun import mlogin
 
 def login():
     clear_terminal()
@@ -10,14 +10,7 @@ def login():
     nama = input("Nama: ")
 
     try:
-        conn = db.connect_db()
-        cur = conn.cursor()
-
-        cur.execute("""
-            SELECT id_akun, nama, role FROM akun
-            WHERE no_hp = %s AND nama = %s;
-        """, (no_hp, nama))
-        user = cur.fetchone()
+        user = mlogin(no_hp, nama)
 
         if user:
             id_akun= user[0]
@@ -41,5 +34,6 @@ def login():
         kembali()
         
     finally:
+        conn, cur = db()
         cur.close()
         conn.close()
