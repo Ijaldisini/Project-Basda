@@ -1,8 +1,10 @@
 import psycopg2
 import Database as db
 import time
+from terminal import clear_terminal, kembali
 
 def login():
+    clear_terminal()
     print('\n' + '=' * 20 + ' LOGIN ' + '=' * 20 + '\n')
     no_hp = input("No HP: ")
     nama = input("Nama: ")
@@ -23,18 +25,20 @@ def login():
             status = user[2]
             
             if status == "O":
-                print("Anda owner")
+                return("owner", nama)
                 
             else : 
-                print("Anda petani")
+                return("petani", id_akun, nama)
             
         else:
             input("Login gagal: Nomor HP atau nama salah!!!")
             time.sleep(1)
-            login()
+            kembali()
 
     except Exception as e:
         print("Terjadi kesalahan saat login:", e)
+        time.sleep(1)
+        kembali()
         
     finally:
         cur.close()
