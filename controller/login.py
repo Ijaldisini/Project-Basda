@@ -7,15 +7,16 @@ def login():
     clear_terminal()
     print('\n' + '=' * 20 + ' LOGIN ' + '=' * 20 + '\n')
     no_hp = input("No HP: ")
-    nama = input("Nama: ")
+    password = input("Password: ")
 
     try:
-        user = mlogin(no_hp, nama)
+        user = mlogin(no_hp, password)
 
         if user:
             id_akun= user[0]
             nama= user[1]
             status = user[2]
+            # password = user[3]
             
             if status == "O":
                 return("owner", nama)
@@ -24,7 +25,7 @@ def login():
                 return("petani", id_akun, nama)
             
         else:
-            input("Login gagal: Nomor HP atau nama salah!!!")
+            input("Login gagal: Nomor HP atau Password Salah")
             time.sleep(1)
             kembali()
 

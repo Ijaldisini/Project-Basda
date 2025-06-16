@@ -1,7 +1,7 @@
 import tabulate
 from core.Database import curr_db as db
 
-def data_full():
+def datastokbibit_full():
     conn, cur = db()
     cur.execute("SELECT * FROM bibit_tanaman")
     data = cur.fetchall()
