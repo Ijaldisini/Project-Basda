@@ -7,7 +7,7 @@ import model.stok as stok
 from controller.stok import tambah_stok, kelola_siklus_rak
 from controller.penyakit import deteksi_penyakit
 from controller.jadwalvit import jadwal_vitamin
-from controller.transaksi import transaksi_penjualan, lihat_riwayat
+from controller.transaksi import transaksi_penjualan, lihat_riwayat, lihat_riwayatowner
 
 def main():
     while True:
@@ -64,7 +64,7 @@ def menu_owner(nama, id_akun):
             
         elif pilihan == "2":
             clear_terminal()
-            lihat_riwayat(id_akun)
+            lihat_riwayatowner(id_akun)
             
         elif pilihan == "3":
             clear_terminal()
@@ -144,8 +144,8 @@ def menu_stok_owner():
         
 def menu_stok_petani():
     clear_terminal()
-    data = stok.datastokbibit_full()
     while True:
+        data = stok.datastokbibit_full()
         print (tabulate.tabulate(data,headers=["ID Bibit", "Nama Bibit", "Stok", "Usia Panen","Hasil Panen Per Bibit", "Harga Perkg", "Harga Bibit"], tablefmt="fancy_grid"))
         
         print('+:+:+:+:+:+:+:+:+:+:+:+:+:+:+:+:+:+:+:+:+:+:+:+:+:+')
