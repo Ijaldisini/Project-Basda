@@ -1,4 +1,4 @@
-from model.transaksi import insert_transaksi, insert_detail_transaksi, get_riwayat_transaksi, get_harga_perkg, update_hasil_panen
+from model.transaksi import insert_transaksi, insert_detail_transaksi, get_riwayat_transaksi, get_harga_perkg, update_hasil_panen, get_riwayat_transaksiowner
 from model.stok import sayur_panen
 from controller.terminal import clear_terminal, kembali
 from tabulate import tabulate
@@ -77,6 +77,20 @@ def lihat_riwayat(id_akun):
     clear_terminal()
     print("=== RIWAYAT PENJUALAN ===\n")
     data = get_riwayat_transaksi(id_akun)
+    if data:
+        print(tabulate(
+            [[d[0], d[1], d[2], d[3], d[4]] for d in data],
+            headers=["ID Transaksi", "Tanggal", "Bibit", "Jumlah (kg)", "Total (Rp)"],
+            tablefmt="fancy_grid"
+        ))
+    else:
+        print("Belum ada transaksi.")
+    kembali()
+    
+def lihat_riwayatowner():
+    clear_terminal()
+    print("=== RIWAYAT PENJUALAN ===\n")
+    data = get_riwayat_transaksiowner()
     if data:
         print(tabulate(
             [[d[0], d[1], d[2], d[3], d[4]] for d in data],
