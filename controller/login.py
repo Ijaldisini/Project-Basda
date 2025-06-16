@@ -1,7 +1,7 @@
-from Database import curr_db as db
+from core.Database import curr_db as db
 import time
-from terminal import clear_terminal, kembali
-from M_Akun import mlogin
+from controller.terminal import clear_terminal, kembali
+from model.akun import mlogin
 
 def login():
     clear_terminal()

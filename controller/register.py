@@ -1,8 +1,8 @@
 import psycopg2
-from Database import curr_db as db
+from core.Database import curr_db as db
 import time
-from terminal import clear_terminal, kembali
-from M_Akun import mregister_cek, mregister
+from controller.terminal import clear_terminal, kembali
+from model.akun import mregister_cek, mregister
 
 def register():
     clear_terminal()

@@ -1,7 +1,8 @@
 import time
-from register import register
-from login import login
-from terminal import clear_terminal, kembali
+from controller.register import register
+from controller.login import login
+from controller.terminal import clear_terminal, kembali
+from model.stok import data_full
 
 def main():
     clear_terminal()
@@ -46,27 +47,20 @@ def menu_owner(nama):
         print('+:+:+:+:+:+:+:+:+:+:+:+:+:+:+:+:+:+:+:+:+:+:+:+:+:+')
         print('|| ^^^ 	     	     MENU OWNER              ^^^ ||')
         print('||---------    Silahkan pilih menu      ---------||')
-        print('||                1. Penjualan Hasil Tani        ||')
-        print('||                2. Rute Pengiriman             ||')
-        print('||                3. Pencatatan Transaksi        ||')
-        print('||                4. Pengelolaan Stok            ||')
-        print('||                5. Keluar                      ||')
+        print('||                1. Stok                        ||')
+        print('||                2. Penjualan                   ||')
+        print('||                3. Keluar                      ||')
         print('+:+:+:+:+:+:+:+:+:+:+:+:+:+:+:+:+:+:+:+:+:+:+:+:+:+')
         pilihan = input('Silahkan pilih menu: ').strip()
         
         if pilihan == "1":
-            print("kau")
+            clear_terminal()
+            menu_stok()
             
         elif pilihan == "2":
-            print("an")
+            print("penjualan")
             
         elif pilihan == "3":
-            print("coba")
-        
-        elif pilihan == "4":
-            print("lagi")
-        
-        elif pilihan == "5":
             clear_terminal()
             print('\n' + '=' * 20 + ' TERIMA KASIH TELAH MENGGUNAKAN APLIKASI TANI ' + '=' * 20 + '\n')
             time.sleep(1)
@@ -84,24 +78,49 @@ def menu_petani(id_akun, nama):
         print('+:+:+:+:+:+:+:+:+:+:+:+:+:+:+:+:+:+:+:+:+:+:+:+:+:+')
         print('|| ^^^ 	     	    MENU PETANI              ^^^ ||')
         print('||---------    Silahkan pilih menu      ---------||')
-        print('||                1. Beli Hasil Tani             ||')
-        print('||                2. Riwayat Pembelian           ||')
-        print('||                3. Keluar                      ||')
+        print('||                1. Stok                        ||')
+        print('||                2. Penjualan                   ||')
+        print('||                3. Jadwal vitamin              ||')
+        print('||                4. Deteksi penyakit            ||')
+        print('||                5. Keluar                      ||')
         print('+:+:+:+:+:+:+:+:+:+:+:+:+:+:+:+:+:+:+:+:+:+:+:+:+:+')
         pilihan = input('Silahkan pilih menu: ').strip()
         
         if pilihan == "1":
-            print("id_akun")
+            clear_terminal()
+            menu_stok()
             
         elif pilihan == "2":
-            print("id_akun")
+            print("penjualan")
             
         elif pilihan == "3":
+            print("jadwal vitamin")
+            
+        elif pilihan == "4":
+            print("deteksi penyakit")
+            
+        elif pilihan == "5":
             print("Terima kasih telah menggunakan aplikasi ini.")
             clear_terminal()
             break
         
         else:
             print("Pilihan tidak valid.")
-            
+
+def menu_stok():
+    data = data_full()
+    while True:
+        print('+:+:+:+:+:+:+:+:+:+:+:+:+:+:+:+:+:+:+:+:+:+:+:+:+:+')
+        print('|| ^^^ 	      MENU PENGELOLAAN STOK          ^^^ ||')
+        print('||---------    Silahkan pilih menu      ---------||')
+        print('||    1. Tampilkan Sayur Berdasar Stok           ||')
+        print('||    2. Tampilkan Sayur Berdasarkan Urutan Nama ||')
+        print('||    3. Cari Sayur dan Ganti Harga              ||')
+        print('||    4. Tambah Sayur                            ||')
+        print('||    5. Hapus Sayur                             ||')
+        print('||    6. Tambah Stock                            ||')
+        print('||    7. Kembali                                 ||')
+        print('+:+:+:+:+:+:+:+:+:+:+:+:+:+:+:+:+:+:+:+:+:+:+:+:+:+')
+        pilihan = input('Silahkan pilih menu: ').strip()
+        
 main()

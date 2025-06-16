@@ -1,4 +1,4 @@
-from Database import curr_db as db
+from core.Database import curr_db as db
 
 def mlogin(no_hp, nama):
     conn, cur = db()
