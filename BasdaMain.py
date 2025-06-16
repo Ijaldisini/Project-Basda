@@ -2,7 +2,7 @@ import time
 from controller.register import register
 from controller.login import login
 from controller.terminal import clear_terminal, kembali
-from model.stok import data_full
+from model.stok import datastokbibit_full
 from controller.penyakit import deteksi_penyakit
 from controller.jadwalvit import jadwal_vitamin
 from controller.transaksi import transaksi_penjualan
@@ -58,7 +58,7 @@ def menu_owner(nama):
         
         if pilihan == "1":
             clear_terminal()
-            menu_stok()
+            menu_stok_owner()
             
         elif pilihan == "2":
             print("penjualan")
@@ -91,7 +91,7 @@ def menu_petani(id_akun, nama):
         
         if pilihan == "1":
             clear_terminal()
-            menu_stok()
+            menu_stok_petani()
             
         elif pilihan == "2":
             clear_terminal()
@@ -114,8 +114,26 @@ def menu_petani(id_akun, nama):
         else:
             print("Pilihan tidak valid.")
 
-def menu_stok():
-    data = data_full()
+def menu_stok_owner():
+    clear_terminal()
+    data = datastokbibit_full()
+    while True:
+        print('+:+:+:+:+:+:+:+:+:+:+:+:+:+:+:+:+:+:+:+:+:+:+:+:+:+')
+        print('|| ^^^ 	      MENU PENGELOLAAN STOK          ^^^ ||')
+        print('||---------    Silahkan pilih menu      ---------||')
+        print('||    1. Tampilkan Sayur Berdasar Stok           ||')
+        print('||    2. Tampilkan Sayur Berdasarkan Urutan Nama ||')
+        print('||    3. Cari Sayur dan Ganti Harga              ||')
+        print('||    4. Tambah Sayur                            ||')
+        print('||    5. Hapus Sayur                             ||')
+        print('||    6. Tambah Stock                            ||')
+        print('||    7. Kembali                                 ||')
+        print('+:+:+:+:+:+:+:+:+:+:+:+:+:+:+:+:+:+:+:+:+:+:+:+:+:+')
+        pilihan = input('Silahkan pilih menu: ').strip()
+        
+def menu_stok_petani():
+    clear_terminal()
+    data = datastokbibit_full()
     while True:
         print('+:+:+:+:+:+:+:+:+:+:+:+:+:+:+:+:+:+:+:+:+:+:+:+:+:+')
         print('|| ^^^ 	      MENU PENGELOLAAN STOK          ^^^ ||')
