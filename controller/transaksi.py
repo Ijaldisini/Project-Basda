@@ -1,4 +1,5 @@
-from model.transaksi import get_daftar_panen, insert_transaksi, insert_detail_transaksi, get_riwayat_transaksi
+from model.transaksi import insert_transaksi, insert_detail_transaksi, get_riwayat_transaksi, get_harga_perkg, update_hasil_panen
+from model.stok import sayur_panen
 from controller.terminal import clear_terminal, kembali
 from tabulate import tabulate
 from datetime import datetime
@@ -29,40 +30,44 @@ def tambah_transaksi(id_akun):
     clear_terminal()
     print("=== TAMBAH TRANSAKSI PENJUALAN ===\n")
 
-    daftar = get_daftar_panen()
+    daftar = sayur_panen()
     if not daftar:
         print("Belum ada panen yang tersedia untuk dijual.")
         kembali()
         return
 
     print(tabulate(
-        [[i+1, d[0], d[1], d[2]] for i, d in enumerate(daftar)],
-        headers=["No", "ID Panen", "Bibit", "Total Panen (gram), "],
+        [[i + 1, d[0], d[1], d[2], d[7]] for i, d in enumerate(daftar)],
+        headers=["No", "ID Rak", "Bibit", "Bibit/Rak", "Total Hasil (gram)"],
         tablefmt="fancy_grid"
     ))
 
     try:
-        pilihan = int(input("\nMasukkan ID Panen yang ingin dijual: "))
-        panen_terpilih = next((d for d in daftar if d[0] == pilihan), None)
+        pilihan = int(input("\nMasukkan ID Rak yang ingin dijual: "))
+        rak_terpilih = next((d for d in daftar if d[0] == pilihan), None)
 
-        if not panen_terpilih:
-            print("ID panen tidak ditemukan.")
+        if not rak_terpilih:
+            print("ID rak tidak ditemukan.")
             kembali()
             return
 
         jumlah = int(input("Masukkan jumlah (kg) yang ingin dijual: "))
-        if jumlah > panen_terpilih[2]:
+        if jumlah * 1000 > rak_terpilih[7]:
             print("Jumlah melebihi total hasil panen!")
             kembali()
             return
 
-        harga_perkg = 10000  # jika ingin dinamis, ambil dari bibit_tanaman
+        id_bibit = rak_terpilih[8]
+        harga_perkg = get_harga_perkg(id_bibit)
         nominal = jumlah * harga_perkg
 
         id_transaksi = insert_transaksi(id_akun)
-        insert_detail_transaksi(jumlah, nominal, id_transaksi, panen_terpilih[0])
+        id_panen = rak_terpilih[3]
+        insert_detail_transaksi(jumlah, nominal, id_transaksi, id_panen)
+        update_hasil_panen(id_panen, jumlah * 1000)
 
         print(f"\n✅ Transaksi berhasil dicatat. Total: Rp{nominal:,}")
+        
     except Exception as e:
         print(f"❌ Terjadi kesalahan: {e}")
 

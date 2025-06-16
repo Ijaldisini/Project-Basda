@@ -44,7 +44,7 @@ def get_riwayat_transaksi(id_akun):
         FROM transaksi t
         JOIN detail_transaksi dt ON dt.transaksi_id_transaksi = t.id_transaksi
         JOIN panen p ON dt.panen_id_panen = p.id_panen
-        JOIN bibit_tanaman b ON p.id_bibit = b.id_bibit
+        JOIN bibit_tanaman b ON p.bibit_tanaman_id_bibit = b.id_bibit
         WHERE t.akun_id_akun = %s
         ORDER BY t.tanggal DESC
     """, (id_akun,))
@@ -52,3 +52,22 @@ def get_riwayat_transaksi(id_akun):
     cur.close()
     conn.close()
     return data
+
+def get_harga_perkg(id_bibit):
+    conn, cur = db()
+    cur.execute("SELECT harga_perkg FROM bibit_tanaman WHERE id_bibit = %s", (id_bibit,))
+    hasil = cur.fetchone()
+    cur.close()
+    conn.close()
+    return hasil[0] if hasil else 0
+
+def update_hasil_panen(id_panen, jumlah_gram):
+    conn, cur = db()
+    cur.execute("""
+        UPDATE panen
+        SET total_hasil_panen = total_hasil_panen - %s
+        WHERE id_panen = %s
+    """, (jumlah_gram, id_panen))
+    conn.commit()
+    cur.close()
+    conn.close()

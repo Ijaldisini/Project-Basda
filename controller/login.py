@@ -19,7 +19,7 @@ def login():
             # password = user[3]
             
             if status == "O":
-                return("owner", nama)
+                return("owner", nama, id_akun)
                 
             else : 
                 return("petani", id_akun, nama)
