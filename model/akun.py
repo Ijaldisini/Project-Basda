@@ -1,11 +1,11 @@
 from core.Database import curr_db as db
 
-def mlogin(no_hp, nama):
+def mlogin(no_hp, password):
     conn, cur = db()
     
     cur.execute("""SELECT id_akun, nama, role FROM akun
-            WHERE no_hp = %s AND nama = %s;
-        """, (no_hp, nama))
+            WHERE no_hp = %s AND password = %s;
+        """, (no_hp, password))
     
     result = cur.fetchone()
     
@@ -13,7 +13,7 @@ def mlogin(no_hp, nama):
     conn.close()
     return result
 
-def mregister_cek(nama, no_hp):
+def mregister_cek(no_hp):
     conn, cur = db()
     
     cur.execute("SELECT * FROM akun WHERE no_hp = %s", (no_hp,))
@@ -24,13 +24,13 @@ def mregister_cek(nama, no_hp):
     conn.close()
     return result
 
-def mregister(nama, no_hp):
+def mregister(nama, no_hp, password):
     conn, cur = db()
     
     cur.execute("""
-        INSERT INTO akun (no_hp, nama, role)
-        VALUES (%s, %s, %s) RETURNING id_akun;
-    """, (no_hp, nama, "P"))
+        INSERT INTO akun (nama,no_hp,role,password)
+        VALUES (%s, %s, %s, %s) RETURNING id_akun;
+    """, (no_hp, nama, "P",password))
     id_akun = cur.fetchone()[0]
     
     conn.commit()

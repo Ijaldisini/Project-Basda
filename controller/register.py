@@ -7,10 +7,11 @@ from model.akun import mregister_cek, mregister
 def register():
     clear_terminal()
     print('\n' + '=' * 20 + ' REGISTRASI AKUN ' + '=' * 20 + '\n')
-    nama = input("Nama: ")
+    nama = input("Nama : ")
     no_hp = input("No HP: ")
+    password = input("Password: ")
     
-    cek = mregister_cek(nama, no_hp)
+    cek = mregister_cek(no_hp)
     conn, cur = db()
     
     if cek is not None:
@@ -20,7 +21,7 @@ def register():
     
     try:
         if cek is None:
-            mregister(nama, no_hp)
+            mregister(nama, no_hp,password)
             
             print("Registrasi berhasil!")
             time.sleep(1)
