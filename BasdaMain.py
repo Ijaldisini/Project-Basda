@@ -4,6 +4,8 @@ from controller.login import login
 from controller.terminal import clear_terminal, kembali
 from model.stok import data_full
 from controller.penyakit import deteksi_penyakit
+from controller.jadwalvit import jadwal_vitamin
+from controller.transaksi import transaksi_penjualan
 
 def main():
     clear_terminal()
@@ -92,10 +94,12 @@ def menu_petani(id_akun, nama):
             menu_stok()
             
         elif pilihan == "2":
-            print("penjualan")
+            clear_terminal()
+            transaksi_penjualan(id_akun)
             
         elif pilihan == "3":
-            print("jadwal vitamin")
+            clear_terminal()
+            jadwal_vitamin()
             
         elif pilihan == "4":
             clear_terminal()
