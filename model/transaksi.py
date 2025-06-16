@@ -36,3 +36,19 @@ def insert_detail_transaksi(jumlah, nominal, id_transaksi, id_panen):
     conn.commit()
     cur.close()
     conn.close()
+
+def get_riwayat_transaksi(id_akun):
+    conn, cur = db()
+    cur.execute("""
+        SELECT t.id_transaksi, t.tanggal, b.nama_bibit, dt.jumlah, dt.nominal
+        FROM transaksi t
+        JOIN detail_transaksi dt ON dt.transaksi_id_transaksi = t.id_transaksi
+        JOIN panen p ON dt.panen_id_panen = p.id_panen
+        JOIN bibit_tanaman b ON p.id_bibit = b.id_bibit
+        WHERE t.akun_id_akun = %s
+        ORDER BY t.tanggal DESC
+    """, (id_akun,))
+    data = cur.fetchall()
+    cur.close()
+    conn.close()
+    return data
