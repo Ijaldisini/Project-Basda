@@ -3,6 +3,7 @@ from controller.register import register
 from controller.login import login
 from controller.terminal import clear_terminal, kembali
 from model.stok import data_full
+from controller.penyakit import deteksi_penyakit
 
 def main():
     clear_terminal()
@@ -97,10 +98,12 @@ def menu_petani(id_akun, nama):
             print("jadwal vitamin")
             
         elif pilihan == "4":
-            print("deteksi penyakit")
+            clear_terminal()
+            deteksi_penyakit()
             
         elif pilihan == "5":
             print("Terima kasih telah menggunakan aplikasi ini.")
+            kembali()
             clear_terminal()
             break
         
