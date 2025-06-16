@@ -1,13 +1,14 @@
 import time
+import tabulate
 from controller.register import register
 from controller.login import login
 from controller.terminal import clear_terminal, kembali
-from model.stok import datastokbibit_full
+import model.stok as stok
 from controller.penyakit import deteksi_penyakit
 
 def main():
-    clear_terminal()
     while True:
+        clear_terminal()
         print('+:+:+:+:+:+:+:+:+:+:+:+:+:+:+:+:+:+:+:+:+:+:+:+:+:+')
         print('|| ^^^ 	     	        MENU                 ^^^ ||')
         print('||---------    Silahkan pilih menu      ---------||')
@@ -48,7 +49,7 @@ def menu_owner(nama):
         print('+:+:+:+:+:+:+:+:+:+:+:+:+:+:+:+:+:+:+:+:+:+:+:+:+:+')
         print('|| ^^^ 	     	     MENU OWNER              ^^^ ||')
         print('||---------    Silahkan pilih menu      ---------||')
-        print('||                1. Stok                        ||')
+        print('||                1. Lihat Stok                  ||')
         print('||                2. Penjualan                   ||')
         print('||                3. Keluar                      ||')
         print('+:+:+:+:+:+:+:+:+:+:+:+:+:+:+:+:+:+:+:+:+:+:+:+:+:+')
@@ -111,25 +112,35 @@ def menu_petani(id_akun, nama):
             print("Pilihan tidak valid.")
 
 def menu_stok_owner():
-    clear_terminal()
-    data = datastokbibit_full()
     while True:
+        clear_terminal()
         print('+:+:+:+:+:+:+:+:+:+:+:+:+:+:+:+:+:+:+:+:+:+:+:+:+:+')
         print('|| ^^^ 	      MENU PENGELOLAAN STOK          ^^^ ||')
-        print('||---------    Silahkan pilih menu      ---------||')
-        print('||    1. Tampilkan Sayur Berdasar Stok           ||')
-        print('||    2. Tampilkan Sayur Berdasarkan Urutan Nama ||')
-        print('||    3. Cari Sayur dan Ganti Harga              ||')
-        print('||    4. Tambah Sayur                            ||')
-        print('||    5. Hapus Sayur                             ||')
-        print('||    6. Tambah Stock                            ||')
-        print('||    7. Kembali                                 ||')
+        print('||---------    Silahkan pilih menu       ---------||')
+        print('||    1. Tampilkan Stock Bibit                    ||')
+        print('||    2. Tampilkan Sayur                          ||')
+        print('||    3. Keluar                                   ||')
         print('+:+:+:+:+:+:+:+:+:+:+:+:+:+:+:+:+:+:+:+:+:+:+:+:+:+')
         pilihan = input('Silahkan pilih menu: ').strip()
+        if pilihan == "1" :
+            clear_terminal()
+            data = stok.datastokbibit_full()
+            print (tabulate.tabulate(data,headers=["ID Bibit", "Nama Bibit", "Stok", "Usia Panen","Hasil Panen Per Bibit", "Harga Perkg", "Harga Bibit"], tablefmt="fancy_grid"))
+            input("Tekan Enter Untuk Kembali....")
+        elif pilihan == "2":
+            clear_terminal()
+            data = stok.datastoksayur_full()
+            print (tabulate.tabulate(data,headers =["ID Rak","Bibit Tanaman","Bibit Per Rak","Tanggal Tanam","Tanggal Panen","Batas Panen","Total Hasil Panen"],tablefmt="fancy_grid"))
+            input("Tekan Enter Untuk Kembali....")
+            
+        elif pilihan == "3":
+            break
+            
+            
         
 def menu_stok_petani():
     clear_terminal()
-    data = datastokbibit_full()
+    data = stok.datastokbibit_full()
     while True:
         print('+:+:+:+:+:+:+:+:+:+:+:+:+:+:+:+:+:+:+:+:+:+:+:+:+:+')
         print('|| ^^^ 	      MENU PENGELOLAAN STOK          ^^^ ||')

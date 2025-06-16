@@ -24,7 +24,7 @@ def mregister_cek(no_hp):
     conn.close()
     return result
 
-def mregister(nama, no_hp, password):
+def mregister(no_hp, nama, password):
     conn, cur = db()
     
     cur.execute("""
