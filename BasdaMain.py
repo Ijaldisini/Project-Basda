@@ -45,7 +45,7 @@ def main():
             print("Pilihan tidak valid!!")
             kembali()
             
-def menu_owner(nama, id_akun):
+def menu_owner(nama):
     while True :
         clear_terminal()
         print('\n' + '=' * 20 + f' Halo {nama} selamat datang di Aplikasi Petani!!! ' + '=' * 20 + '\n')
@@ -64,7 +64,7 @@ def menu_owner(nama, id_akun):
             
         elif pilihan == "2":
             clear_terminal()
-            lihat_riwayatowner(id_akun)
+            lihat_riwayatowner()
             
         elif pilihan == "3":
             clear_terminal()

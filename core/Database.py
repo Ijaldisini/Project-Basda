@@ -3,9 +3,9 @@ import psycopg2
 def connect_db():
     conn = psycopg2.connect(
     host="localhost",
-    database="Basda",
+    database="DBBasda",
     user="postgres",
-    password="syadid1306",
+    password="@Raditya14",
     port=5432
     )     
     return conn
